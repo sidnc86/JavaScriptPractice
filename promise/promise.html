@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Trying Promises</title>
+<script type="text/javascript">
+//getFirstName
+function getFirstName() {
+var prom = new Promise(function(resolve, reject) {
+resolve("Siddhant");
+});
+return prom;
+}
+//getLastName
+function getLastName() {
+var prom = new Promise(function(resolve, reject) {
+resolve("Chothe");
+});
+return prom;
+}
+//printName
+function printName(first, last) {
+  document.write("Hello " + first + " " + last + "!");
+}
+//Integration
+function getAndPrintName() {
+var fName = "";
+var lName = "";
+getFirstName().then(function(firstName) {
+fName = firstName;
+return getLastName();
+}).then(function(lastName) {
+lName = lastName;
+printName(fName, lName);
+});
+}
+getAndPrintName();
+//alert("all loaded");
+</script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript">
+var myModule = (function() {
+//private variables in module
+var x = "First";
+var callCnt = 1;
+
+//private method in module
+function printSimply() {
+  document.write("Now x is " + x + ".<br/>");
+}
+function print() {
+  document.write("x loaded " + callCnt + " times: " + x + ".<br/>");
+  callCnt++;
+}
+//debug information on initialization
+document.write("x initialized " + callCnt + " time:" + x + ".<br />");
+callCnt++;
+//here onward, public API for module
+return {
+  //public method
+  reportX: printSimply,
+  loadXFirst: function(newValue) {
+    x = newValue;//setting private variable
+    print();//call private method
+  },
+  loadX: function(newValue, resumeCall) {
+    x = newValue;//setting private variable
+    print();//call private method
+    resumeCall();
+  }
+};
+})();//will run the initialization tasks
+//calling public API
+myModule.loadXFirst("second");
+myModule.loadXFirst("third");
+function startActivity() {
+  myModule.loadX("started", resumeNextActivity);
+}
+function resumeNextActivity() {
+  document.write("Activity resumed once started and module called.<br/>");
+  myModule.reportX();
+  myModule.loadXFirst("Ended");
+}
+startActivity();
+</script>
+</head>
+<body>
+
+</body>
+</html>
