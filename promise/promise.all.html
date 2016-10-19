@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Try Promise.all</title>
+<script type="text/javascript">
+function nice() {
+  var p = new Promise(function(resolve, reject) {
+    resolve("good job");
+  });
+  return p;
+}
+function omg() {
+  var p = new Promise(function(resolve, reject) {
+    reject("Oh my god!");
+  });
+  return p;
+}
+function hasSomethingGoneWrong(oops) {
+  document.write("All failed to happen! =&gt; " + oops + "<br />");
+}
+function isEverythingFine(all) {
+  document.write("All has happened! =&gt; [<br />");
+  for(var i = 0; i < all.length; i++) {
+    document.write(all[i] + "<br />");
+  }
+  document.write("]<br/>");
+}
+var allMustHappen = [];
+allMustHappen.push(nice());
+allMustHappen.push(nice());
+allMustHappen.push(omg());
+Promise.all(allMustHappen).then(isEverythingFine, hasSomethingGoneWrong);
+var allWorks = [];
+allWorks.push(nice());
+allWorks.push(nice());
+allWorks.push(nice());
+Promise.all(allWorks).then(isEverythingFine, hasSomethingGoneWrong);
+</script>
+</html>
